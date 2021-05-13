@@ -164,10 +164,6 @@ When FILES is given, scan also these files."
         (org-mode)
         (dolist (file files)
           (when (file-exists-p file)
-            (unless silent
-              (cl-incf i)
-              (message "Finding :%s: locations (%d/%d files): %s"
-                       id-prop i nfiles file))
             (insert-file-contents file nil nil nil 'replace)
             (let ((ids nil)
                   (case-fold-search t))
@@ -195,10 +191,6 @@ When FILES is given, scan also these files."
       (warn
        "WARNING: %d duplicate :%s: properties found, check *Messages* buffer"
        ndup id-prop))
-    (message "%d files scanned, %d files contain IDs, and %d :%s: IDs found."
-             nfiles (length org-generic-id-files)
-             (hash-table-count (gethash id-prop org-generic-id-locations))
-             id-prop)
     org-generic-id-locations))
 
 (defun org-generic-id-locations-save ()
